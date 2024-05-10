@@ -1,5 +1,6 @@
 // INFO:
 // URL: https://adventofcode.com/2015/day/1
+// RUN: cargo run -- '()' src/input.txt
 
 use std::env;
 use std::fs;
@@ -20,7 +21,11 @@ fn main() {
     let contents =
         fs::read_to_string(config.file_path).expect("Should have been able to read the file");
 
-    println!("With text:\n{contents}");
+    // counting instances
+    let count = count_partentheses(contents);
+    println!("Total '()' characters: {}", count);
+
+    // println!("With text:\n{contents}");
 }
 
 struct Config {
@@ -38,4 +43,34 @@ impl Config {
 
         Ok(Config { query, file_path })
     }
+}
+
+fn increment(n: &mut isize) {
+    *n += 1
+}
+
+fn decrement(n: &mut isize) {
+    *n -= 1
+}
+
+fn count_partentheses(contents: String) -> isize {
+    let mut counter = 1;
+    contents
+        .chars()
+        .enumerate()
+        .for_each(|(_index, character)| {
+            // println!("{}: {}", index, character);
+            match character == ')' {
+                true => {
+                    increment(&mut counter);
+                    // println!("{}: {} (count: {})", index, character, counter);
+                }
+                false => {
+                    decrement(&mut counter);
+                    // println!("{}: {} (count: {})", index, character, counter);
+                }
+            }
+        });
+
+    counter
 }
