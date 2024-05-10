@@ -21,8 +21,14 @@ fn main() {
     let contents =
         fs::read_to_string(config.file_path).expect("Should have been able to read the file");
 
-    let count = count_partentheses(contents);
+    // counting instances
+    let count = count_partentheses(&contents);
     println!("Total '()' characters: {}", count);
+
+    match find_first_basement_position(&contents) {
+        Some(pos) => println!("Santa is in the basement: {}", pos + 1),
+        None => println!("Santa is safe"),
+    }
 }
 
 struct Config {
@@ -50,19 +56,37 @@ fn decrement(n: &mut isize) {
     *n -= 1
 }
 
-fn count_partentheses(contents: String) -> isize {
+fn count_partentheses(contents: &str) -> isize {
     let mut counter = 1;
     contents
         .chars()
         .enumerate()
-        .for_each(|(_index, character)| match character == ')' {
-            true => {
-                increment(&mut counter);
-            }
-            false => {
-                decrement(&mut counter);
+        .for_each(|(_index, character)| {
+            // println!("{}: {}", _index, character);
+            match character == ')' {
+                true => {
+                    increment(&mut counter);
+                }
+                false => {
+                    decrement(&mut counter);
+                }
             }
         });
-
     counter
+}
+
+fn find_first_basement_position(contents: &str) -> Option<usize> {
+    let mut counter = 0;
+    for (index, character) in contents.chars().enumerate() {
+        match character {
+            '(' => increment(&mut counter),
+            ')' => decrement(&mut counter),
+            _ => {}
+        }
+
+        if counter == -1 {
+            return Some(index);
+        }
+    }
+    None
 }
