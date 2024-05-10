@@ -21,11 +21,8 @@ fn main() {
     let contents =
         fs::read_to_string(config.file_path).expect("Should have been able to read the file");
 
-    // counting instances
     let count = count_partentheses(contents);
     println!("Total '()' characters: {}", count);
-
-    // println!("With text:\n{contents}");
 }
 
 struct Config {
@@ -58,17 +55,12 @@ fn count_partentheses(contents: String) -> isize {
     contents
         .chars()
         .enumerate()
-        .for_each(|(_index, character)| {
-            // println!("{}: {}", index, character);
-            match character == ')' {
-                true => {
-                    increment(&mut counter);
-                    // println!("{}: {} (count: {})", index, character, counter);
-                }
-                false => {
-                    decrement(&mut counter);
-                    // println!("{}: {} (count: {})", index, character, counter);
-                }
+        .for_each(|(_index, character)| match character == ')' {
+            true => {
+                increment(&mut counter);
+            }
+            false => {
+                decrement(&mut counter);
             }
         });
 
