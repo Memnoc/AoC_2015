@@ -67,3 +67,16 @@ impl Config {
 ```
 
 This allow us to read from the file, and all the entries are printed as strings, which is a problem. So the next problem to solve is to convert the output back into numbers.
+To solve it, we could create a function that converts the string back into numbers, but before doing so, there is the problem of how computing them into mathematical operations.
+We have an output that is for example `8x11x6` so we could take the advantage of the format and the sign `x` - we could write a function that permutes all the `x`s into `*` and then pass each character to the function that performs the area calculation.
+
+So to sum up:
+
+1. Put all hints in a file
+2. Read all inputs in the file
+3. Change all occurrences of `x` to `*`
+   3.1 for example `8x11x6` becomes `8*11*6`
+4. Convert the string into a number
+5. Pass the value to the `calculate_prism_area` function
+6. Inside `calculate_prism_area` call `add_extra_slack`
+   6.1 this function takes the smallest area as parameter and adds the result to the `total` square feet of wrapping paper
