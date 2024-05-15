@@ -52,3 +52,11 @@ fn count_and_replace_x(contents: &str) -> String {
 
     new_contents
 }
+
+fn convert_string_signs_to_numbers(new_contents: &str) -> usize {
+    todo!();
+}
+
+fn calculate_prism_area(new_contents: &str) {
+    let modified_string = count_and_replace_x(&new_contents);
+}
