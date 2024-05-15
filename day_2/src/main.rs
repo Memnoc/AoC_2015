@@ -21,7 +21,10 @@ fn main() {
     let contents =
         fs::read_to_string(config.file_path).expect("Should have been able to read the file");
 
-    println!("Contents: {}", contents);
+    let modified_string = count_and_replace_x(&contents);
+    println!("Modified String: {}", modified_string);
+
+    // println!("Contents: {}", contents);
 }
 
 struct Config {
@@ -39,4 +42,13 @@ impl Config {
 
         Ok(Config { query, file_path })
     }
+}
+
+fn count_and_replace_x(contents: &str) -> String {
+    let new_contents: String = contents
+        .chars()
+        .map(|c| if c == 'x' { '*' } else { c })
+        .collect();
+
+    new_contents
 }
