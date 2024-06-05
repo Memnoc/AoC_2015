@@ -66,7 +66,7 @@ impl Config {
 }
 ```
 
-This allow us to read from the file, and all the entries are printed as strings, which is a problem. So the next problem to solve is to convert the output back into numbers.
+This allow us to read from the file, but all the entries are printed as strings, which is a problem. So the next problem to solve is to convert the output back into numbers.
 To solve it, we could create a function that converts the string back into numbers, but before doing so, there is the problem of how computing them into mathematical operations.
 We have an output that is for example `8x11x6` so we could take the advantage of the format and the sign `x` - we could write a function that permutes all the `x`s into `*` and then pass each character to the function that performs the area calculation.
 
