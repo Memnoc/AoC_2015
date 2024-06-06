@@ -29,12 +29,6 @@ fn main() {
         }
     }
 
-    // let modified_string = count_and_replace_x(&contents);
-    // // println!("Modified String: {}", modified_string);
-    //
-    // let converted_string = convert_string_signs_to_numbers(&modified_string);
-    // println!("Converted String: {}", converted_string);
-    // println!("Contents: {}", contents);
     println!("Total Area: {}", total_area);
 }
 
@@ -83,21 +77,3 @@ fn parse_and_calculate_area(line: &str) -> Result<usize, &'static str> {
 
     Ok(total)
 }
-
-// fn count_and_replace_x(contents: &str) -> String {
-//     let new_contents: String = contents
-//         .chars()
-//         .map(|c| if c == 'x' { '*' } else { c })
-//         .collect();
-//
-//     new_contents
-// }
-//
-// fn convert_string_signs_to_numbers(new_contents: &str) -> usize {
-//     let area: usize = new_contents.trim().parse().expect("Please type a number!");
-//     area
-// }
-//
-// fn calculate_prism_area(new_contents: &str) {
-//     let modified_string = count_and_replace_x(&new_contents);
-// }
