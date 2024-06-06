@@ -28,7 +28,6 @@ fn main() {
             Err(err) => println!("Error calculating area: {}", err),
         }
     }
-
     println!("Total Area: {}", total_area);
 }
 
