@@ -21,20 +21,21 @@ fn main() {
     let contents =
         fs::read_to_string(config.file_path).expect("Should have been able to read the file");
 
+    let mut total_area = 0;
     for line in contents.lines() {
         match parse_and_calculate_area(line) {
-            Ok(area) => println!("Area: {}", area),
+            Ok(area) => total_area += area,
             Err(err) => println!("Error calculating area: {}", err),
         }
     }
 
-    //
     // let modified_string = count_and_replace_x(&contents);
     // // println!("Modified String: {}", modified_string);
     //
     // let converted_string = convert_string_signs_to_numbers(&modified_string);
     // println!("Converted String: {}", converted_string);
-    // // println!("Contents: {}", contents);
+    // println!("Contents: {}", contents);
+    println!("Total Area: {}", total_area);
 }
 
 struct Config {
@@ -78,6 +79,7 @@ fn parse_and_calculate_area(line: &str) -> Result<usize, &'static str> {
     let smallest_side = lw.min(wh).min(hl);
 
     let total = surface_area + smallest_side;
+    println!("total: {}", total);
 
     Ok(total)
 }
