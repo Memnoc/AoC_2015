@@ -22,13 +22,18 @@ fn main() {
         fs::read_to_string(config.file_path).expect("Should have been able to read the file");
 
     let mut total_area = 0;
+    let mut total_ribbon = 0;
     for line in contents.lines() {
         match parse_and_calculate_area(line) {
-            Ok(area) => total_area += area,
+            Ok((area, ribbon)) => {
+                total_area += area;
+                total_ribbon += ribbon;
+            }
             Err(err) => println!("Error calculating area: {}", err),
         }
     }
     println!("Total Area: {}", total_area);
+    println!("Total Ribbon: {}", total_ribbon);
 }
 
 struct Config {
@@ -48,7 +53,7 @@ impl Config {
     }
 }
 
-fn parse_and_calculate_area(line: &str) -> Result<usize, &'static str> {
+fn parse_and_calculate_area(line: &str) -> Result<(usize, usize), &'static str> {
     let dimensions: Vec<&str> = line.split('x').collect();
     if dimensions.len() != 3 {
         return Err("Invalid dimensions");
@@ -70,9 +75,19 @@ fn parse_and_calculate_area(line: &str) -> Result<usize, &'static str> {
 
     let surface_area = 2 * lw + 2 * wh + 2 * hl;
     let smallest_side = lw.min(wh).min(hl);
+    let total_area = surface_area + smallest_side;
 
-    let total = surface_area + smallest_side;
-    println!("total: {}", total);
+    // Calculate ribbon
+    let perimeter1 = 2 * (l + w);
+    let perimeter2 = 2 * (w + h);
+    let perimeter3 = 2 * (h + l);
 
-    Ok(total)
+    let smallest_perimeter = perimeter1.min(perimeter2).min(perimeter3);
+    let volume = l * w * h;
+
+    let total_ribbon = smallest_perimeter + volume;
+
+    println!("total: {}", total_area);
+
+    Ok((total_area, total_ribbon))
 }
